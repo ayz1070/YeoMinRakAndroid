@@ -9,7 +9,8 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import kr.co.lion.yeominrak.databinding.ActivityBulletinBoardBinding
-import kr.co.lion.yeominrak.databinding.BoardItemBinding
+import kr.co.lion.yeominrak.databinding.RowBoardBinding
+
 
 class BulletinBoardActivity : AppCompatActivity() {
     lateinit var binding:ActivityBulletinBoardBinding
@@ -54,17 +55,17 @@ class BulletinBoardActivity : AppCompatActivity() {
 
     inner class RecyclerViewAdapter: RecyclerView.Adapter<RecyclerViewAdapter.ViewHolderClass>() {
 
-        inner class ViewHolderClass(boardItemBinding: BoardItemBinding) : RecyclerView.ViewHolder(boardItemBinding.root) {
-            val boardItemBinding:BoardItemBinding
+        inner class ViewHolderClass(rowBoardBinding: RowBoardBinding) : RecyclerView.ViewHolder(rowBoardBinding.root) {
+            val rowBoardBinding:RowBoardBinding
 
             init {
-                this.boardItemBinding = boardItemBinding
+                this.rowBoardBinding = rowBoardBinding
 
             }
         }
 
         override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolderClass {
-            val boardItemBinding = BoardItemBinding.inflate(layoutInflater)
+            val boardItemBinding = RowBoardBinding.inflate(layoutInflater)
             val viewHolderClass = ViewHolderClass(boardItemBinding)
             return viewHolderClass
         }
@@ -72,10 +73,10 @@ class BulletinBoardActivity : AppCompatActivity() {
         override fun getItemCount(): Int = postList.size
 
         override fun onBindViewHolder(holder: ViewHolderClass, position: Int) {
-            holder.boardItemBinding.textViewTitle.text = postList[position].title
-            holder.boardItemBinding.textViewContent.text = postList[position].content
-            holder.boardItemBinding.textViewNickname.text = postList[position].nickname
-            holder.boardItemBinding.textViewDate.text = postList[position].date
+            holder.rowBoardBinding.textViewTitle.text = postList[position].title
+            holder.rowBoardBinding.textViewContent.text = postList[position].content
+            holder.rowBoardBinding.textViewNickname.text = postList[position].nickname
+            holder.rowBoardBinding.textViewDate.text = postList[position].date
         }
     }
 }
