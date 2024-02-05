@@ -3,7 +3,8 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/menuItemAddBoard"
+        android:id="@+id/menu_item_write_board"
         android:icon="@drawable/add_24px"
-        android:title="글쓰기" />
+        android:title="글쓰기"
+        app:showAsAction="always" />
 </menu>

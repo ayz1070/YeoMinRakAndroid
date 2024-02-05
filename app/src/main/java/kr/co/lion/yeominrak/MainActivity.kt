@@ -1,10 +1,15 @@
 package kr.co.lion.yeominrak
 
+import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.View
 import android.view.ViewGroup
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.ViewHolder
+import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.google.android.material.carousel.CarouselLayoutManager
 import kr.co.lion.yeominrak.databinding.ActivityMainBinding
 import kr.co.lion.yeominrak.databinding.RowMainBinding
@@ -12,10 +17,18 @@ import kr.co.lion.yeominrak.databinding.RowMainBinding
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
     lateinit var imageRes:MutableList<Int>
+
+
+    // 런처 객체
+    lateinit var boardLauncher:ActivityResultLauncher<Intent>
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
+        // Intent 계약
+
         initData()
         initView()
         setEvent()
@@ -29,6 +42,11 @@ class MainActivity : AppCompatActivity() {
             R.drawable.image_7,R.drawable.image_8,R.drawable.image_9,
             R.drawable.image_10
         )
+
+        boardLauncher = registerForActivityResult(getContract()){
+            // 계약 후 가져올 데이터에 대한 코드 작성
+
+        }
     }
 
     fun initView(){
@@ -47,7 +65,20 @@ class MainActivity : AppCompatActivity() {
                 // layoutManager = CarouselLayoutManager(HeroCarouselStrategy())
                 // layoutManager = CarouselLayoutManager(FullScreenCarouselStrategy())
             }
+
+            buttonTest.setOnClickListener {
+                val intent = Intent(this@MainActivity,BoardActivity::class.java)
+                boardLauncher.launch(intent)
+            }
         }
+
+
+
+
+    }
+
+    fun getContract(): ActivityResultContracts.StartActivityForResult {
+        return ActivityResultContracts.StartActivityForResult()
     }
 
     inner class RecyclerViewAdapterMain: RecyclerView.Adapter<RecyclerViewAdapterMain.ViewHolderMain>() {
@@ -72,6 +103,7 @@ class MainActivity : AppCompatActivity() {
 
         override fun getItemCount(): Int = imageRes.size
 
-
     }
+
+
 }

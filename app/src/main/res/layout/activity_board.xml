@@ -4,10 +4,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".BulletinBoardActivity">
+    tools:context=".BoardActivity">
 
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarBulletinBoard"
+        android:id="@+id/toolbarBoard"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:background="#7AD6FF"
@@ -18,7 +18,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/boardRecyclerView"
+        android:id="@+id/recyclerViewBoard"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginTop="1dp"
@@ -26,6 +26,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarBulletinBoard"
+        app:layout_constraintTop_toBottomOf="@+id/toolbarBoard"
         app:layout_constraintVertical_bias="0.0" />
 </androidx.constraintlayout.widget.ConstraintLayout>
