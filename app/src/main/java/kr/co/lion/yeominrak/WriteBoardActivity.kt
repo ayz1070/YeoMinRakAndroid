@@ -13,7 +13,6 @@ import java.util.Locale
 
 class WriteBoardActivity : AppCompatActivity() {
     lateinit var binding:ActivityWriteBoardBinding
-    lateinit var postData:Post
     lateinit var postTitle:String
     lateinit var postContent:String
 
@@ -66,17 +65,14 @@ class WriteBoardActivity : AppCompatActivity() {
                 Snackbar.make(binding.root,"빈 칸이 존재합니다!!",Snackbar.LENGTH_SHORT)
                 return
             }
-            postData = Post(postTitle,postContent,"테스트 유저",getCurrentDate())
-            val resultIntent = Intent()
-            resultIntent.putExtra("postData",postData)
-            setResult(RESULT_OK,resultIntent)
+            Util.postList.add(Post(postTitle,postContent,"테스트 유저",getCurrentDate()))
             finish()
         }
 
     }
 
     fun getCurrentDate():String{
-        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분", Locale.getDefault())
+        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초", Locale.getDefault())
         val currentDate = Date()
         return dateFormat.format(currentDate)
     }

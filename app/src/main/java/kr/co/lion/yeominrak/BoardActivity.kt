@@ -17,9 +17,9 @@ import kr.co.lion.yeominrak.databinding.RowBoardBinding
 
 class BoardActivity : AppCompatActivity() {
     lateinit var binding: ActivityBoardBinding
-    lateinit var postList: MutableList<Post>
     lateinit var recyclerViewAdapter:RecyclerViewAdapterBoard
     lateinit var writeBoardLauncher:ActivityResultLauncher<Intent>
+    lateinit var showOneBoardLauncher: ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -61,26 +61,20 @@ class BoardActivity : AppCompatActivity() {
     fun setLauncher(){
         val contract1 = ActivityResultContracts.StartActivityForResult()
         writeBoardLauncher = registerForActivityResult(contract1){
-            // 다시 되돌아 올 때의 코드 구현
-            if(it.resultCode == RESULT_OK){
-                if(it.data != null){
-                    if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU){
-                        val postData = it.data?.getParcelableExtra("postData",Post::class.java)!!
-                        postList.add(postData)
-                    }else{
-                        val postData = it.data?.getParcelableExtra<Post>("postData")!!
-                        postList.add(postData)
-                    }
-                    binding.recyclerViewBoard.adapter?.notifyDataSetChanged()
-                }
-            }
+            binding.recyclerViewBoard.adapter?.notifyDataSetChanged()
         }
+
+        val contract2 = ActivityResultContracts.StartActivityForResult()
+        showOneBoardLauncher = registerForActivityResult(contract2){
+
+        }
+
 
 
     }
 
     fun initData(){
-        postList = mutableListOf()
+
 
     }
     fun initView(){
@@ -113,9 +107,7 @@ class BoardActivity : AppCompatActivity() {
                     ViewGroup.LayoutParams.WRAP_CONTENT
                 )
 
-                this.rowBoardBinding.root.setOnClickListener {
-                    // 리사이클러뷰 한 칸에 대한 클릭 리스너
-                }
+
 
             }
         }
@@ -126,13 +118,19 @@ class BoardActivity : AppCompatActivity() {
             return viewHolderBoard
         }
 
-        override fun getItemCount(): Int = postList.size
+        override fun getItemCount(): Int = Util.postList.size
 
         override fun onBindViewHolder(holder: ViewHolderBoard, position: Int) {
-            holder.rowBoardBinding.textViewTitle.text = postList[position].title
-            holder.rowBoardBinding.textViewContent.text = postList[position].content
-            holder.rowBoardBinding.textViewNickname.text = postList[position].nickname
-            holder.rowBoardBinding.textViewDate.text = postList[position].date
+            holder.rowBoardBinding.textViewTitle.text = Util.postList[position].title
+            holder.rowBoardBinding.textViewContent.text = Util.postList[position].content
+            holder.rowBoardBinding.textViewNickname.text = Util.postList[position].nickname
+            holder.rowBoardBinding.textViewDate.text = Util.postList[position].date
+
+            holder.rowBoardBinding.root.setOnClickListener {
+                val showIntent = Intent(this@BoardActivity,ShowOneBoardActivity::class.java)
+                showIntent.putExtra("position",position)
+                showOneBoardLauncher.launch(showIntent)
+            }
         }
     }
 }
