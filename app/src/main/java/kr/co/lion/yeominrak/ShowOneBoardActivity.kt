@@ -15,7 +15,28 @@ class ShowOneBoardActivity : AppCompatActivity() {
 
         initData()
         initView()
+        setToolbar()
         setEvent()
+    }
+
+    fun setToolbar(){
+        binding.apply{
+            toolbarShowOne.apply{
+                title = "자유게시판"
+                setOnMenuItemClickListener {
+                    when(it.itemId){
+                        R.id.menu_item_modify_show_one -> {
+
+                        }
+                        R.id.menu_item_delete_show_one -> {
+
+                        }
+                    }
+                    true
+                }
+                inflateMenu(R.menu.menu_show_one_board)
+            }
+        }
     }
 
     fun initData(){
@@ -29,7 +50,8 @@ class ShowOneBoardActivity : AppCompatActivity() {
         }
     }
 
-    fun setEvent(){
 
+    fun setEvent(){
+        // 테스트
     }
 }
