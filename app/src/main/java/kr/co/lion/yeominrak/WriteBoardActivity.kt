@@ -65,7 +65,7 @@ class WriteBoardActivity : AppCompatActivity() {
                 Snackbar.make(binding.root,"빈 칸이 존재합니다!!",Snackbar.LENGTH_SHORT)
                 return
             }
-            Util.postList.add(Post(postTitle,postContent,"테스트 유저",getCurrentDate()))
+            Util.postList.add(Post(postTitle,postContent,"테스트 유저",getCurrentDate(),Util.testUser.userWeek))
             finish()
         }
 

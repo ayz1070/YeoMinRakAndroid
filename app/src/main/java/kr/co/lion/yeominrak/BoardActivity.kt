@@ -33,6 +33,13 @@ class BoardActivity : AppCompatActivity() {
         setEvent()
     }
 
+    override fun onResume() {
+        super.onResume()
+        binding.apply{
+            recyclerViewBoard.adapter?.notifyDataSetChanged()
+        }
+    }
+
     fun setToolbar(){
         binding.apply{
             toolbarBoard.apply{
