@@ -24,14 +24,26 @@ class ShowOneBoardActivity : AppCompatActivity() {
         setEvent()
     }
 
+    override fun onResume() {
+        super.onResume()
+        initView()
+    }
+
     fun setToolbar(){
         binding.apply{
             toolbarShowOne.apply{
                 title = "자유게시판"
+
+                setNavigationIcon(R.drawable.arrow_back_24px)
+
+                setNavigationOnClickListener {
+                    finish()
+                }
                 setOnMenuItemClickListener {
                     when(it.itemId){
                         R.id.menu_item_modify_show_one -> {
                             val modifyBoardIntent = Intent(this@ShowOneBoardActivity,ModifyBoardActivity::class.java)
+                            modifyBoardIntent.putExtra("position",position)
                             modifyBoardLauncher.launch(modifyBoardIntent)
                         }
                         R.id.menu_item_delete_show_one -> {
@@ -55,8 +67,6 @@ class ShowOneBoardActivity : AppCompatActivity() {
 
     fun initData(){
         position = intent?.getIntExtra("position",0)!!
-
-
 
 
     }

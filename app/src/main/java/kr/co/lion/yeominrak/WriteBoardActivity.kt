@@ -65,17 +65,12 @@ class WriteBoardActivity : AppCompatActivity() {
                 Snackbar.make(binding.root,"빈 칸이 존재합니다!!",Snackbar.LENGTH_SHORT)
                 return
             }
-            Util.postList.add(Post(postTitle,postContent,"테스트 유저",getCurrentDate(),Util.testUser.userWeek))
+            Util.postList.add(Post(postTitle,postContent,Util.testUser.userName,Util.getCurrentDate(),Util.testUser.userWeek))
             finish()
         }
 
     }
 
-    fun getCurrentDate():String{
-        val dateFormat = SimpleDateFormat("yyyy년 MM월 dd일 HH시 mm분 ss초", Locale.getDefault())
-        val currentDate = Date()
-        return dateFormat.format(currentDate)
-    }
 
     fun initData(){
 

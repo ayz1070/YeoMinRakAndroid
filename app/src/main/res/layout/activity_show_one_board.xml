@@ -45,7 +45,8 @@
                 android:id="@+id/editTextContentShowOne"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:editable="false" />
+                android:editable="false"
+                android:gravity="start|top" />
         </com.google.android.material.textfield.TextInputLayout>
     </LinearLayout>
 
