@@ -39,7 +39,13 @@
             android:id="@+id/buttonTest"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Button" />
+            android:text="자유게시판" />
+
+        <Button
+            android:id="@+id/buttonWeekBoard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="내 분반" />
 
     </LinearLayout>
 

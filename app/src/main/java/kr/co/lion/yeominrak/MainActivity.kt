@@ -21,6 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     // 런처 객체
     lateinit var boardLauncher:ActivityResultLauncher<Intent>
+    lateinit var weekBoardLauncher:ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,8 +32,11 @@ class MainActivity : AppCompatActivity() {
 
         initData()
         initView()
+
         setEvent()
+
     }
+
 
     fun initData(){
         // 테스트 이미지
@@ -45,6 +49,9 @@ class MainActivity : AppCompatActivity() {
 
         boardLauncher = registerForActivityResult(getContract()){
             // 계약 후 가져올 데이터에 대한 코드 작성
+
+        }
+        weekBoardLauncher = registerForActivityResult(getContract()){
 
         }
     }
@@ -70,11 +77,12 @@ class MainActivity : AppCompatActivity() {
                 val intent = Intent(this@MainActivity,BoardActivity::class.java)
                 boardLauncher.launch(intent)
             }
+
+            buttonWeekBoard.setOnClickListener {
+                val weekBoardIntent = Intent(this@MainActivity,WeekBoardActivity::class.java)
+                weekBoardLauncher.launch(weekBoardIntent)
+            }
         }
-
-
-
-
     }
 
     fun getContract(): ActivityResultContracts.StartActivityForResult {
