@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/black"
     android:orientation="vertical"
     tools:context=".MainActivity">
 
     <com.google.android.material.appbar.MaterialToolbar
-        android:id="@+id/materialToolbar"
+        android:id="@+id/toolbarMain"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="?attr/colorPrimary"
+        android:background="@color/black"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -24,28 +25,49 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewMain"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="300dp"
             android:layout_marginStart="30dp"
             android:layout_marginEnd="30dp" />
 
         <TextView
             android:id="@+id/textView2"
-            android:layout_width="match_parent"
+            android:layout_width="386dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:text="나의 분반"
+            android:textAppearance="@style/TextAppearance.AppCompat.Large"
+            android:textColor="@color/white" />
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:layout_marginTop="10dp"
-            android:text="나의 분반" />
+            android:background="@drawable/round_corner_main"
+            android:padding="10dp">
 
-        <Button
-            android:id="@+id/buttonTest"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="자유게시판" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
-        <Button
-            android:id="@+id/buttonWeekBoard"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="내 분반" />
+                <TextView
+                    android:id="@+id/textViewBoardMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="자유게시판"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/textViewWeekBoardMain"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="나의 요일"
+                    android:textAppearance="@style/TextAppearance.AppCompat.Medium"
+                    android:textColor="@color/white" />
+            </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
 

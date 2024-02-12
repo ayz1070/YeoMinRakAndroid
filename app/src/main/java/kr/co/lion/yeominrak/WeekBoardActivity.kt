@@ -21,6 +21,7 @@ class WeekBoardActivity : AppCompatActivity() {
 
         initData()
         initView()
+        setToolbar()
         setEvent()
 
     }
@@ -28,6 +29,8 @@ class WeekBoardActivity : AppCompatActivity() {
         binding.apply{
             toolbarWeekBoard.apply{
 
+                title = "${Util.testUser.userWeek.str}요반 게시판"
+                inflateMenu(R.menu.menu_week_board)
             }
         }
     }

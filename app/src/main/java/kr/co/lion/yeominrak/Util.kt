@@ -23,7 +23,7 @@ class Util {
             Post("테스트 글8","테스트 내용8","최재원",Util.getCurrentDate(),Week.WEEK_WEDNESDAY)
         )
 
-        val testUser = User("안영준","ayz1070",Week.WEEK_WEDNESDAY)
+        val testUser = User("안영준","ayz1070",Week.WEEK_SATURDAY)
 
         val myWeekList = mutableListOf<Post>(
 

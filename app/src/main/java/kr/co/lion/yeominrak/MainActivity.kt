@@ -32,19 +32,29 @@ class MainActivity : AppCompatActivity() {
 
         initData()
         initView()
+        setToolbar()
 
         setEvent()
 
+    }
+
+    fun setToolbar(){
+        binding.apply{
+            toolbarMain.apply{
+                title = "메인 화면"
+                setTitleTextColor(getColor(R.color.white))
+                inflateMenu(R.menu.menu_main)
+            }
+        }
     }
 
 
     fun initData(){
         // 테스트 이미지
         imageRes = mutableListOf(
-            R.drawable.image_1,R.drawable.image_2,R.drawable.image_3,
-            R.drawable.image_4,R.drawable.image_5,R.drawable.image_6,
-            R.drawable.image_7,R.drawable.image_8,R.drawable.image_9,
-            R.drawable.image_10
+            R.drawable.test_img_1,R.drawable.test_img_2,R.drawable.test_img_3,
+            R.drawable.test_img_4,R.drawable.test_img_5,R.drawable.test_img_6,
+            R.drawable.test_img_7
         )
 
         boardLauncher = registerForActivityResult(getContract()){
@@ -73,12 +83,12 @@ class MainActivity : AppCompatActivity() {
                 // layoutManager = CarouselLayoutManager(FullScreenCarouselStrategy())
             }
 
-            buttonTest.setOnClickListener {
+            textViewBoardMain.setOnClickListener {
                 val intent = Intent(this@MainActivity,BoardActivity::class.java)
                 boardLauncher.launch(intent)
             }
 
-            buttonWeekBoard.setOnClickListener {
+            textViewWeekBoardMain.setOnClickListener {
                 val weekBoardIntent = Intent(this@MainActivity,WeekBoardActivity::class.java)
                 weekBoardLauncher.launch(weekBoardIntent)
             }
