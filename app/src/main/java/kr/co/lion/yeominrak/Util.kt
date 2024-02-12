@@ -1,7 +1,9 @@
 package kr.co.lion.yeominrak
 
 import java.text.SimpleDateFormat
+import java.util.Calendar
 import java.util.Date
+import java.util.Locale
 
 class Util {
     companion object{
@@ -33,6 +35,16 @@ class Util {
             val currentTime = Date()
             val timeFormat = SimpleDateFormat("yyyy년 mm월 dd일 hh시 mm분 ss초")
             return timeFormat.format(currentTime)
+        }
+
+        fun getCurrentDayOfWeek(): String {
+            val calendar = Calendar.getInstance()
+            val dayOfWeek = calendar.get(Calendar.DAY_OF_WEEK)
+
+            val sdf = SimpleDateFormat("EEEE", Locale.getDefault())
+            val currentDate = calendar.time
+
+            return sdf.format(currentDate)
         }
 
     }

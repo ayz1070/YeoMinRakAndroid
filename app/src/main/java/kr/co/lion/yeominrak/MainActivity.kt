@@ -18,10 +18,10 @@ class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
     lateinit var imageRes:MutableList<Int>
 
-
     // 런처 객체
     lateinit var boardLauncher:ActivityResultLauncher<Intent>
     lateinit var weekBoardLauncher:ActivityResultLauncher<Intent>
+    lateinit var checkAttendanceLauncher:ActivityResultLauncher<Intent>
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -64,6 +64,9 @@ class MainActivity : AppCompatActivity() {
         weekBoardLauncher = registerForActivityResult(getContract()){
 
         }
+        checkAttendanceLauncher = registerForActivityResult(getContract()){
+
+        }
     }
 
     fun initView(){
@@ -92,6 +95,12 @@ class MainActivity : AppCompatActivity() {
                 val weekBoardIntent = Intent(this@MainActivity,WeekBoardActivity::class.java)
                 weekBoardLauncher.launch(weekBoardIntent)
             }
+
+            textViewCheckAttendanceMain.setOnClickListener{
+                val checkAttendanceIntent = Intent(this@MainActivity, CheckAttendanceActivity::class.java)
+                checkAttendanceLauncher.launch(checkAttendanceIntent)
+            }
+
         }
     }
 
