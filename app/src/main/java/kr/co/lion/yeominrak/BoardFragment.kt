@@ -2,42 +2,43 @@ package kr.co.lion.yeominrak
 
 import android.content.Intent
 import android.graphics.Color
-import android.os.Build
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
-import kr.co.lion.yeominrak.databinding.ActivityBoardBinding
+import kr.co.lion.yeominrak.databinding.FragmentBoardBinding
 import kr.co.lion.yeominrak.databinding.RowBoardBinding
 
 
-class BoardActivity : AppCompatActivity() {
-    lateinit var binding: ActivityBoardBinding
-    lateinit var recyclerViewAdapter:RecyclerViewAdapterBoard
-    lateinit var writeBoardLauncher:ActivityResultLauncher<Intent>
-    lateinit var showOneBoardLauncher: ActivityResultLauncher<Intent>
+class BoardFragment : Fragment() {
+    lateinit var binding:FragmentBoardBinding
+    lateinit var mainActivity: MainActivity
+    lateinit var recyclerViewAdapter: RecyclerViewAdapterBoard
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityBoardBinding.inflate(layoutInflater)
-        setContentView(binding.root)
+        binding = FragmentBoardBinding.inflate(inflater)
+        // Inflate the layout for this fragment
 
-        setToolbar()
-        setLauncher()
         initData()
         initView()
+
+        setToolbar()
         setEvent()
+        return binding.root
     }
 
     override fun onResume() {
         super.onResume()
-        binding.apply{
-            recyclerViewBoard.adapter?.notifyDataSetChanged()
-        }
+        recyclerViewAdapter.notifyDataSetChanged()
     }
 
     fun setToolbar(){
@@ -49,14 +50,12 @@ class BoardActivity : AppCompatActivity() {
                 setNavigationIcon(R.drawable.arrow_back_24px)
                 inflateMenu(R.menu.menu_board)
                 setNavigationOnClickListener {
-                    setResult(RESULT_OK)
-                    finish()
+                    mainActivity.removeFragment(FragmentName.BOARD_FRAGMENT)
                 }
                 setOnMenuItemClickListener {
                     when(it.itemId){
                         R.id.menu_item_write_board -> {
-                            val writeIntent = Intent(this@BoardActivity,WriteBoardActivity::class.java)
-                            writeBoardLauncher.launch(writeIntent)
+                            mainActivity.replaceFragment(FragmentName.WRITE_BOARD_FRAGMENT,true,true,null)
                         }
                     }
                     true
@@ -65,24 +64,8 @@ class BoardActivity : AppCompatActivity() {
         }
     }
 
-    fun setLauncher(){
-        val contract1 = ActivityResultContracts.StartActivityForResult()
-        writeBoardLauncher = registerForActivityResult(contract1){
-            binding.recyclerViewBoard.adapter?.notifyDataSetChanged()
-        }
-
-        val contract2 = ActivityResultContracts.StartActivityForResult()
-        showOneBoardLauncher = registerForActivityResult(contract2){
-
-        }
-
-
-
-    }
-
     fun initData(){
-
-
+        mainActivity = activity as MainActivity
     }
     fun initView(){
         recyclerViewAdapter = RecyclerViewAdapterBoard()
@@ -91,9 +74,10 @@ class BoardActivity : AppCompatActivity() {
 
 
             recyclerViewBoard.adapter = recyclerViewAdapter
-            recyclerViewBoard.layoutManager = LinearLayoutManager(this@BoardActivity)
+            recyclerViewBoard.layoutManager = LinearLayoutManager(requireContext())
 
-            val decoration = MaterialDividerItemDecoration(this@BoardActivity,MaterialDividerItemDecoration.VERTICAL)
+            val decoration = MaterialDividerItemDecoration(requireContext(),
+                MaterialDividerItemDecoration.VERTICAL)
             recyclerViewBoard.addItemDecoration(decoration)
         }
     }
@@ -104,7 +88,7 @@ class BoardActivity : AppCompatActivity() {
     inner class RecyclerViewAdapterBoard: RecyclerView.Adapter<RecyclerViewAdapterBoard.ViewHolderBoard>() {
 
         inner class ViewHolderBoard(rowBoardBinding: RowBoardBinding) : RecyclerView.ViewHolder(rowBoardBinding.root) {
-            val rowBoardBinding:RowBoardBinding
+            val rowBoardBinding: RowBoardBinding
 
             init {
                 this.rowBoardBinding = rowBoardBinding
@@ -134,9 +118,9 @@ class BoardActivity : AppCompatActivity() {
             holder.rowBoardBinding.textViewDate.text = Util.postList[position].date
 
             holder.rowBoardBinding.root.setOnClickListener {
-                val showIntent = Intent(this@BoardActivity,ShowOneBoardActivity::class.java)
-                showIntent.putExtra("position",position)
-                showOneBoardLauncher.launch(showIntent)
+                val bundle = Bundle()
+                bundle.putInt("position",position)
+                mainActivity.replaceFragment(FragmentName.SHOW_ONE_BOARD_FRAGMENT,true,true,bundle)
             }
         }
     }

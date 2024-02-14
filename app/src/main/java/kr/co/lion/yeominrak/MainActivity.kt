@@ -4,133 +4,124 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.os.SystemClock
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.recyclerview.widget.RecyclerView.Recycler
 import com.google.android.material.carousel.CarouselLayoutManager
+import com.google.android.material.transition.MaterialSharedAxis
 import kr.co.lion.yeominrak.databinding.ActivityMainBinding
 import kr.co.lion.yeominrak.databinding.RowMainBinding
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
-    lateinit var imageRes:MutableList<Int>
 
-    // 런처 객체
-    lateinit var boardLauncher:ActivityResultLauncher<Intent>
-    lateinit var weekBoardLauncher:ActivityResultLauncher<Intent>
-    lateinit var checkAttendanceLauncher:ActivityResultLauncher<Intent>
+    var oldFragment: Fragment? = null
+    var newFragment: Fragment? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        // Intent 계약
-
-        initData()
-        initView()
-        setToolbar()
-
-        setEvent()
-
+        replaceFragment(FragmentName.MAIN_FRAGMENT, false,false,null)
     }
 
-    fun setToolbar(){
-        binding.apply{
-            toolbarMain.apply{
-                title = "메인 화면"
-                setTitleTextColor(getColor(R.color.white))
-                inflateMenu(R.menu.menu_main)
-            }
+    fun replaceFragment(fragmentName:FragmentName,addToBackStack:Boolean, isAnimate:Boolean, data:Bundle?){
+        SystemClock.sleep(200)
+
+        // Fragment를 교체할 수 있는 객체를 추출한다.
+        val fragmentTransaction = supportFragmentManager.beginTransaction()
+
+        // oldFragment에 newFragment가 가지고 있는 Fragment 객체를 담아준다.
+        if(newFragment != null){
+            oldFragment = newFragment
         }
-    }
 
-
-    fun initData(){
-        // 테스트 이미지
-        imageRes = mutableListOf(
-            R.drawable.test_img_1,R.drawable.test_img_2,R.drawable.test_img_3,
-            R.drawable.test_img_4,R.drawable.test_img_5,R.drawable.test_img_6,
-            R.drawable.test_img_7
-        )
-
-        boardLauncher = registerForActivityResult(getContract()){
-            // 계약 후 가져올 데이터에 대한 코드 작성
-
-        }
-        weekBoardLauncher = registerForActivityResult(getContract()){
-
-        }
-        checkAttendanceLauncher = registerForActivityResult(getContract()){
-
-        }
-    }
-
-    fun initView(){
-
-    }
-
-    fun setEvent(){
-        binding.apply{
-            // RecyclerView 셋팅
-            recyclerViewMain.apply{
-                // 어댑터
-                adapter = RecyclerViewAdapterMain()
-                // 레이아웃 매니저
-                layoutManager = CarouselLayoutManager()
-                // layoutManager = CarouselLayoutManager(MultiBrowseCarouselStrategy())
-                // layoutManager = CarouselLayoutManager(HeroCarouselStrategy())
-                // layoutManager = CarouselLayoutManager(FullScreenCarouselStrategy())
+        // 이름으로 분기한다.
+        // Fragment의 객체를 생성하여 변수에 담아준다.
+        when(fragmentName){
+            FragmentName.MAIN_FRAGMENT -> {
+                newFragment = MainFragment()
             }
-
-            textViewBoardMain.setOnClickListener {
-                val intent = Intent(this@MainActivity,BoardActivity::class.java)
-                boardLauncher.launch(intent)
+            FragmentName.BOARD_FRAGMENT -> {
+                newFragment = BoardFragment()
             }
-
-            textViewWeekBoardMain.setOnClickListener {
-                val weekBoardIntent = Intent(this@MainActivity,WeekBoardActivity::class.java)
-                weekBoardLauncher.launch(weekBoardIntent)
+            FragmentName.WEEK_BOARD_FRAGMENT -> {
+                newFragment = WeekBoardFragment()
             }
-
-            textViewCheckAttendanceMain.setOnClickListener{
-                val checkAttendanceIntent = Intent(this@MainActivity, CheckAttendanceActivity::class.java)
-                checkAttendanceLauncher.launch(checkAttendanceIntent)
+            FragmentName.CHECK_ATTENDANCE_FRAGMENT -> {
+                newFragment = CheckAttendanceFragment()
+            }
+            FragmentName.WRITE_BOARD_FRAGMENT -> {
+                newFragment = WriteBoardFragment()
+            }
+            FragmentName.MODIFY_BOARD_FRAGMENT -> {
+                newFragment = ModifyBoardFragment()
+            }
+            FragmentName.SHOW_ONE_BOARD_FRAGMENT -> {
+                newFragment = ShowOneBoardFragment()
             }
 
         }
-    }
 
-    fun getContract(): ActivityResultContracts.StartActivityForResult {
-        return ActivityResultContracts.StartActivityForResult()
-    }
+        if(data != null){
+            newFragment?.arguments = data
+        }
 
-    inner class RecyclerViewAdapterMain: RecyclerView.Adapter<RecyclerViewAdapterMain.ViewHolderMain>() {
-        inner class ViewHolderMain(rowMainBinding: RowMainBinding): RecyclerView.ViewHolder(rowMainBinding.root){
-            val rowMainBinding:RowMainBinding
+        if(newFragment != null){
 
-            init{
-                this.rowMainBinding = rowMainBinding
+            // 애니메이션 설정
+            if(isAnimate){
+                if(oldFragment != null){
+                    // old에서 new가 새롭게 보여질 때 old의 애니메이션
+                    oldFragment?.exitTransition = MaterialSharedAxis(MaterialSharedAxis.X,true)
+                    // new에서 old로 되돌아갈때 old의 애니메이션
+                    oldFragment?.reenterTransition = MaterialSharedAxis(MaterialSharedAxis.X,false)
 
+                    oldFragment?.enterTransition = null
+                    oldFragment?.returnTransition = null
+                }
+
+                // old에서 new가 새롭게 보여질 때 new의 애니메이션
+                newFragment?.enterTransition = MaterialSharedAxis(MaterialSharedAxis.X,true)
+                newFragment?.returnTransition = MaterialSharedAxis(MaterialSharedAxis.X,false)
+
+                newFragment?.exitTransition = null
+                newFragment?.reenterTransition = null
+
+                // Fragment 교체
+                fragmentTransaction.replace(R.id.fragmentContainerMain, newFragment!!)
+
+                // addToBackStack 변수의 값이 true면 새롭게 보여질 Fragment를 BackStack에 포함시킨다.
+                if(addToBackStack){
+                    fragmentTransaction.addToBackStack(fragmentName.str)
+                }
+                // Fragment 교체를 확정한다.
+                fragmentTransaction.commit()
             }
         }
 
-        override fun onCreateViewHolder(parent: ViewGroup, viewType: Int):RecyclerViewAdapterMain.ViewHolderMain {
-            val rowMainBinding = RowMainBinding.inflate(layoutInflater)
-            val viewHolderMain = ViewHolderMain(rowMainBinding)
-            return viewHolderMain
-        }
-
-        override fun onBindViewHolder(holder: ViewHolderMain, position: Int) {
-            holder.rowMainBinding.imageViewCarousel.setImageResource(imageRes[position])
-        }
-
-        override fun getItemCount(): Int = imageRes.size
-
     }
 
+    fun removeFragment(fragmentName:FragmentName){
+        SystemClock.sleep(200)
 
+        // 지정한 이름으로 있는 Fragment를 BackStack에서 제거한다.
+        supportFragmentManager.popBackStack(fragmentName.str, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+    }
+}
+
+enum class FragmentName(var str:String){
+    MAIN_FRAGMENT("MainFragment"),
+    BOARD_FRAGMENT("BoardFragment"),
+    WEEK_BOARD_FRAGMENT("WeekBoardFragment"),
+    CHECK_ATTENDANCE_FRAGMENT("CheckAttendanceFragment"),
+    WRITE_BOARD_FRAGMENT("WriteBoardFragment"),
+    SHOW_ONE_BOARD_FRAGMENT("ShowOneBoardFragment"),
+    MODIFY_BOARD_FRAGMENT("ModifyBoardFragment")
 }
