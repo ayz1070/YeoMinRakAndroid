@@ -8,7 +8,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
-import kr.co.lion.yeominrak.databinding.ActivityWriteBoardBinding
 import kr.co.lion.yeominrak.databinding.FragmentWriteBoardBinding
 
 
