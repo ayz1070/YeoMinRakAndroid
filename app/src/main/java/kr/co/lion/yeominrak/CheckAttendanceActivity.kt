@@ -43,19 +43,19 @@ class CheckAttendanceActivity : AppCompatActivity() {
             buttonAttendance.setOnClickListener {
                 when(radioGroupAttendance.checkedRadioButtonId){
                     R.id.radioButtonNotSelected -> {
-                        val attendance = Attendance(Util.testUser,AttendState.NOT_SELECTED)
+                        val attendance = Attendance(Util.testUserModel,AttendState.NOT_SELECTED)
                         attendanceList.add(attendance)
-                        textViewTest.setText("${attendance.user.userName} ${attendance.isAttend.str}")
+                        textViewTest.setText("${attendance.userModel.userName} ${attendance.isAttend.str}")
                     }
                     R.id.radioButtonAttend -> {
-                        val attendance = Attendance(Util.testUser,AttendState.ATTEND)
+                        val attendance = Attendance(Util.testUserModel,AttendState.ATTEND)
                         attendanceList.add(attendance)
-                        textViewTest.setText("${attendance.user.userName} ${attendance.isAttend.str}")
+                        textViewTest.setText("${attendance.userModel.userName} ${attendance.isAttend.str}")
                     }
                     R.id.radioButtonNotAttend -> {
-                        val attendance = Attendance(Util.testUser,AttendState.NOT_ATTEND)
+                        val attendance = Attendance(Util.testUserModel,AttendState.NOT_ATTEND)
                         attendanceList.add(attendance)
-                        textViewTest.setText("${attendance.user.userName} ${attendance.isAttend.str}")
+                        textViewTest.setText("${attendance.userModel.userName} ${attendance.isAttend.str}")
                     }
                     else -> "선택해주세요"
                 }

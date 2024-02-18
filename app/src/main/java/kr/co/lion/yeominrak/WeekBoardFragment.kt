@@ -34,7 +34,7 @@ class WeekBoardFragment : Fragment() {
         binding.apply{
             toolbarWeekBoard.apply{
 
-                title = "${Util.testUser.userWeek.str}요반 게시판"
+                title = "${Util.testUserModel.userWeek.str}요반 게시판"
                 inflateMenu(R.menu.menu_week_board)
             }
         }
@@ -43,7 +43,7 @@ class WeekBoardFragment : Fragment() {
     // ---------------------------------------------------------------
 
     fun initData(){
-        userWeek = Util.testUser.userWeek
+        userWeek = Util.testUserModel.userWeek
         Util.postList.forEach{
             if(it.week == userWeek){
                 Util.myWeekList.add(it)

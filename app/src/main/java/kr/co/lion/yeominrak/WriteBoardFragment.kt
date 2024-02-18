@@ -6,7 +6,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import com.google.android.material.snackbar.Snackbar
 import kr.co.lion.yeominrak.databinding.FragmentWriteBoardBinding
 
@@ -66,7 +65,7 @@ class WriteBoardFragment : Fragment() {
                 Snackbar.make(binding.root,"빈 칸이 존재합니다!!", Snackbar.LENGTH_SHORT)
                 return
             }
-            Util.postList.add(Post(postTitle,postContent,Util.testUser.userName,Util.getCurrentDate(),Util.testUser.userWeek))
+            Util.postList.add(Post(postTitle,postContent,Util.testUserModel.userName,Util.getCurrentDate(),Util.testUserModel.userWeek))
             mainActivity.removeFragment(FragmentName.WRITE_BOARD_FRAGMENT)
         }
 

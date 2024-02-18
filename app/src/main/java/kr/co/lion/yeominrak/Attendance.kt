@@ -1,7 +1,7 @@
 package kr.co.lion.yeominrak
 
 data class Attendance(
-    var user:User,
+    var userModel:UserModel,
     var isAttend:AttendState
 )
 
