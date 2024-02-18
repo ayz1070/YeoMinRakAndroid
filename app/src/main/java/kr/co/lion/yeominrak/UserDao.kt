@@ -72,38 +72,57 @@ class UserDao {
             dbHelper.close()
             return userList
         }
-    }
 
-    // insert
-    fun insertUser(context:Context, userModel:UserModel){
-        // 쿼리문
-        val sql = """update UserTable
+        // insert
+        fun insertUser(context:Context, userModel: UserModel){
+            // 쿼리문
+            val sql = """
+                insert into UserTable
+                (userName,userId,userWeek)
+                values(?, ?, ?)
+            """.trimIndent()
+
+            // ? 에 바인딩 될 값
+            val args = arrayOf(userModel.userName,userModel.userId,userModel.userWeek)
+            // 쿼리 실행
+            val dbHelper = DBHelper(context)
+            dbHelper.writableDatabase.execSQL(sql, args)
+            dbHelper.close()
+        }
+
+        // update
+        fun updateUser(context:Context, userModel:UserModel){
+            // 쿼리문
+            val sql = """update UserTable
             | set userName = ?, userId = ?, userWeek = ?
             | where idx = ?
         """.trimMargin()
 
-        // ?에 바인딩 될 값
-        val args = arrayOf(userModel.userName,userModel.userId,userModel.userWeek)
+            // ?에 바인딩 될 값
+            val args = arrayOf(userModel.userName,userModel.userId,userModel.userWeek)
 
-        // 쿼리 실행
-        val dbHelper = DBHelper(context)
-        dbHelper.writableDatabase.execSQL(sql, args)
-        dbHelper.close()
-    }
+            // 쿼리 실행
+            val dbHelper = DBHelper(context)
+            dbHelper.writableDatabase.execSQL(sql, args)
+            dbHelper.close()
+        }
 
-    // delete
-    fun deleteStudent(context:Context, idx:Int){
-        // 쿼리문
-        val sql = """delete from UserTable
+        // delete
+        fun deleteStudent(context:Context, idx:Int){
+            // 쿼리문
+            val sql = """delete from UserTable
             | where idx = ?
         """.trimMargin()
 
-        // ? 에 바인딩될 값
-        val args = arrayOf(idx)
+            // ? 에 바인딩될 값
+            val args = arrayOf(idx)
 
-        // 쿼리 실행
-        val dbHelper = DBHelper(context)
-        dbHelper.writableDatabase.execSQL(sql, args)
-        dbHelper.close()
+            // 쿼리 실행
+            val dbHelper = DBHelper(context)
+            dbHelper.writableDatabase.execSQL(sql, args)
+            dbHelper.close()
+        }
     }
+
+
 }

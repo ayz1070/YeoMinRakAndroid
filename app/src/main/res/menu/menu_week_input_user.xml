@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_sunday_input_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="일" />
+    <item
+        android:id="@+id/menu_item_monday_input_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="월" />
+    <item
+        android:id="@+id/menu_item_tuesday_input_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="화" />
+    <item
+        android:id="@+id/menu_item_wedneday_input_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="수" />
+    <item
+        android:id="@+id/menu_item_thursday_input_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="목" />
+    <item
+        android:id="@+id/menu_item_friday_input_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="금" />
+    <item
+        android:id="@+id/menu_item_saturday_input_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:title="토" />
+</menu>
