@@ -1,9 +1,8 @@
 package kr.co.lion.yeominrak
 
-import kr.co.lion.yeominrak.model.UserModel
 
 data class Attendance(
-    var userModel: UserModel,
+    var userName: String,
     var isAttend:AttendState
 )
 

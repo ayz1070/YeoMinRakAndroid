@@ -1,14 +1,64 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     tools:context=".CheckAttendanceFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <com.google.android.material.appbar.MaterialToolbar
+        android:id="@+id/toolbarCheckAttendance"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="?attr/colorPrimary"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:orientation="vertical"
+        android:padding="10dp">
 
-</FrameLayout>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/recyclerViewCheckAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="300dp" />
+
+        <RadioGroup
+            android:id="@+id/radioGroupAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <RadioButton
+                android:id="@+id/radioButtonNotSelected"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="고민중..."
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:id="@+id/radioButtonAttend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="참석"
+                android:textColor="@color/white" />
+
+            <RadioButton
+                android:id="@+id/radioButtonNotAttend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="불참"
+                android:textColor="@color/white" />
+
+        </RadioGroup>
+
+        <Button
+            android:id="@+id/buttonAttendance"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Button" />
+
+    </LinearLayout>
+</LinearLayout>
