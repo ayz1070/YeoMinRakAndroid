@@ -50,9 +50,11 @@
 
     <ImageView
         android:id="@+id/imageViewProfileInputUser"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        app:srcCompat="@drawable/giraffe" />
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:layout_gravity="center"
+        android:background="@drawable/profile_image_background"
+        android:scaleType="centerCrop" />
 
     <Button
         android:id="@+id/buttonCompleteInputUser"
