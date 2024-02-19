@@ -1,11 +1,12 @@
 package kr.co.lion.yeominrak
 
 import android.content.Context
+import kr.co.lion.yeominrak.model.UserModel
 
 class UserDao {
     companion object{
         // select one
-        fun selectOneUser(context: Context, idx:Int):UserModel{
+        fun selectOneUser(context: Context, idx:Int): UserModel {
             // 쿼리문
             val sql = """select idx, userName, userId, userWeekStr
                 | from UserTable
@@ -91,7 +92,7 @@ class UserDao {
         }
 
         // update
-        fun updateUser(context:Context, userModel:UserModel){
+        fun updateUser(context:Context, userModel: UserModel){
             // 쿼리문
             val sql = """update UserTable
             | set userName = ?, userId = ?, userWeek = ?

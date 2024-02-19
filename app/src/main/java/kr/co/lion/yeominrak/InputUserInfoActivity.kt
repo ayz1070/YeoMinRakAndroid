@@ -1,26 +1,30 @@
 package kr.co.lion.yeominrak
 
 import android.content.Intent
+import android.graphics.BitmapFactory
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.view.ContextMenu
-import android.view.View
-import android.widget.ArrayAdapter
-import android.widget.AutoCompleteTextView
+import android.provider.MediaStore
+import androidx.activity.result.ActivityResultLauncher
+import androidx.activity.result.contract.ActivityResultContracts
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.textfield.MaterialAutoCompleteTextView
 import kr.co.lion.yeominrak.databinding.ActivityInputUserInfoBinding
+import kr.co.lion.yeominrak.model.UserModel
+import kr.co.lion.yeominrak.model.Week
 
 class InputUserInfoActivity : AppCompatActivity() {
     lateinit var binding:ActivityInputUserInfoBinding
+    lateinit var galleryResultLauncher: ActivityResultLauncher<Intent>
 
     lateinit var userName:String
     lateinit var userId:String
-    lateinit var userWeek:Week
+    lateinit var userWeek: Week
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInputUserInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
+
 
         initData()
         initView()
@@ -59,7 +63,17 @@ class InputUserInfoActivity : AppCompatActivity() {
     }
 
     fun initData(){
+        val contract1 = ActivityResultContracts.StartActivityForResult()
 
+        galleryResultLauncher = registerForActivityResult(contract1){
+            if(it.resultCode == RESULT_OK){
+                if(it.data != null){
+                    val imageUri = it.data?.data
+                    val imageBitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri!!))
+                    binding.imageViewProfileInputUser.setImageBitmap(imageBitmap)
+                }
+            }
+        }
     }
 
     fun initView(){
@@ -83,6 +97,11 @@ class InputUserInfoActivity : AppCompatActivity() {
                 processInput()
                 val mainIntent = Intent(this@InputUserInfoActivity,MainActivity::class.java)
                 startActivity(mainIntent)
+            }
+
+            imageViewProfileInputUser.setOnClickListener {
+                val galleryIntent = Intent(Intent.ACTION_PICK, MediaStore.Images.Media.EXTERNAL_CONTENT_URI)
+                galleryResultLauncher.launch(galleryIntent)
             }
         }
 

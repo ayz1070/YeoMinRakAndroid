@@ -8,6 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
 import kr.co.lion.yeominrak.databinding.FragmentWriteBoardBinding
+import kr.co.lion.yeominrak.model.Post
+import kr.co.lion.yeominrak.model.UserModel
 
 
 class WriteBoardFragment : Fragment() {
@@ -65,7 +67,8 @@ class WriteBoardFragment : Fragment() {
                 Snackbar.make(binding.root,"빈 칸이 존재합니다!!", Snackbar.LENGTH_SHORT)
                 return
             }
-            Util.postList.add(Post(postTitle,postContent,Util.testUserModel.userName,Util.getCurrentDate(),Util.testUserModel.userWeek))
+            val user = UserDao.selectOneUser(requireContext(),0)
+            Util.postList.add(Post(postTitle,postContent,user.userName,user.userId,Util.getCurrentDate(),Util.testUserModel.userWeek))
             mainActivity.removeFragment(FragmentName.WRITE_BOARD_FRAGMENT)
         }
 

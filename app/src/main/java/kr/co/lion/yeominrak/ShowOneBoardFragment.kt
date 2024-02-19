@@ -74,8 +74,8 @@ class ShowOneBoardFragment : Fragment() {
 
     fun initView(){
         binding.apply{
-            editTextTitleShowOne.setText(Util.postList[position].title)
-            editTextContentShowOne.setText(Util.postList[position].content)
+            editTextTitleShowOne.setText(Util.postList[position].postTitle)
+            editTextContentShowOne.setText(Util.postList[position].postContent)
         }
     }
 

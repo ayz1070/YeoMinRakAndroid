@@ -1,4 +1,4 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.model
 
 data class UserModel(
     var idx:Int,

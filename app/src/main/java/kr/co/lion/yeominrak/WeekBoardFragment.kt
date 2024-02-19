@@ -10,11 +10,13 @@ import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
 import kr.co.lion.yeominrak.databinding.FragmentWeekBoardBinding
 import kr.co.lion.yeominrak.databinding.RowBoardBinding
+import kr.co.lion.yeominrak.model.Post
+import kr.co.lion.yeominrak.model.Week
 
 
 class WeekBoardFragment : Fragment() {
     lateinit var binding:FragmentWeekBoardBinding
-    lateinit var userWeek:Week
+    lateinit var userWeek: Week
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?,
@@ -45,7 +47,7 @@ class WeekBoardFragment : Fragment() {
     fun initData(){
         userWeek = Util.testUserModel.userWeek
         Util.postList.forEach{
-            if(it.week == userWeek){
+            if(it.postWeek == userWeek){
                 Util.myWeekList.add(it)
             }
         }
@@ -97,10 +99,10 @@ class WeekBoardFragment : Fragment() {
         override fun getItemCount(): Int = itemList.size
 
         override fun onBindViewHolder(holder: ViewHolderWeekBoard, position: Int) {
-            holder.rowBoardBinding.textViewTitle.text = itemList[position].title
-            holder.rowBoardBinding.textViewContent.text = itemList[position].content
-            holder.rowBoardBinding.textViewNickname.text = itemList[position].nickname
-            holder.rowBoardBinding.textViewDate.text = itemList[position].date
+            holder.rowBoardBinding.textViewTitle.text = itemList[position].postTitle
+            holder.rowBoardBinding.textViewContent.text = itemList[position].postContent
+            holder.rowBoardBinding.textViewNickname.text = itemList[position].postUserId
+            holder.rowBoardBinding.textViewDate.text = itemList[position].postDate
         }
     }
 

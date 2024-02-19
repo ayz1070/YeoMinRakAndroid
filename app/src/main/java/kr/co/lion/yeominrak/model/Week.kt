@@ -1,4 +1,4 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.model
 
 enum class Week(var str:String) {
     WEEK_SUNDAY("일"),

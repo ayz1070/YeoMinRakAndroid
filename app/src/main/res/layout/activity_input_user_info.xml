@@ -48,6 +48,12 @@
             android:editable="false" />
     </com.google.android.material.textfield.TextInputLayout>
 
+    <ImageView
+        android:id="@+id/imageViewProfileInputUser"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        app:srcCompat="@drawable/giraffe" />
+
     <Button
         android:id="@+id/buttonCompleteInputUser"
         android:layout_width="match_parent"
