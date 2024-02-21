@@ -66,6 +66,9 @@ class MainActivity : AppCompatActivity() {
             FragmentName.SHOW_ONE_BOARD_FRAGMENT -> {
                 newFragment = ShowOneBoardFragment()
             }
+            FragmentName.SETTING_FRAGMENT -> {
+                newFragment = SettingFragment()
+            }
 
         }
 
@@ -123,5 +126,6 @@ enum class FragmentName(var str:String){
     CHECK_ATTENDANCE_FRAGMENT("CheckAttendanceFragment"),
     WRITE_BOARD_FRAGMENT("WriteBoardFragment"),
     SHOW_ONE_BOARD_FRAGMENT("ShowOneBoardFragment"),
-    MODIFY_BOARD_FRAGMENT("ModifyBoardFragment")
+    MODIFY_BOARD_FRAGMENT("ModifyBoardFragment"),
+    SETTING_FRAGMENT("SettingFragment")
 }

@@ -86,6 +86,10 @@ class MainFragment : Fragment() {
                 mainActivity.replaceFragment(FragmentName.CHECK_ATTENDANCE_FRAGMENT,true,true,null)
             }
 
+            textViewTestMain.setOnClickListener {
+                mainActivity.replaceFragment(FragmentName.SETTING_FRAGMENT,true,true,null)
+            }
+
         }
     }
 
