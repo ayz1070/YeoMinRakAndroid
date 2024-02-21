@@ -21,10 +21,56 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/recyclerViewCheckAttendance"
+        <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="300dp" />
+            android:layout_height="400dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/textView"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="출석" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewCheckAttendanceAttend"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp" >
+
+                </androidx.recyclerview.widget.RecyclerView>
+
+                <TextView
+                    android:id="@+id/textView3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="결석" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewCheckAttendanceNotAttend"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp" />
+
+                <TextView
+                    android:id="@+id/textView4"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:text="미정" />
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/recyclerViewCheckAttendanceNotSelected"
+                    android:layout_width="match_parent"
+                    android:layout_height="100dp"
+                    android:layout_marginTop="10dp" />
+            </LinearLayout>
+        </ScrollView>
 
         <RadioGroup
             android:id="@+id/radioGroupAttendance"
@@ -36,21 +82,21 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="고민중..."
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:id="@+id/radioButtonAttend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="참석"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
             <RadioButton
                 android:id="@+id/radioButtonNotAttend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="불참"
-                android:textColor="@color/white" />
+                android:textColor="@color/black" />
 
         </RadioGroup>
 
