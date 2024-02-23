@@ -54,7 +54,7 @@ class ShowOneBoardFragment : Fragment() {
                             mainActivity.replaceFragment(FragmentName.MODIFY_BOARD_FRAGMENT,true,true,null)
                         }
                         R.id.menu_item_delete_show_one -> {
-                            Util.postList.removeAt(position)
+                            //Util.postList.removeAt(position)
                             mainActivity.removeFragment(FragmentName.MODIFY_BOARD_FRAGMENT)
                         }
                     }
@@ -74,8 +74,8 @@ class ShowOneBoardFragment : Fragment() {
 
     fun initView(){
         binding.apply{
-            editTextTitleShowOne.setText(Util.postList[position].postTitle)
-            editTextContentShowOne.setText(Util.postList[position].postContent)
+//            editTextTitleShowOne.setText(Util.postList[position].postTitle)
+//            editTextContentShowOne.setText(Util.postList[position].postContent)
         }
     }
 

@@ -23,7 +23,7 @@ class WeekBoardFragment : Fragment() {
     ): View? {
         binding = FragmentWeekBoardBinding.inflate(inflater)
 
-        initData()
+        //initData()
         initView()
         setToolbar()
         setEvent()
@@ -36,7 +36,7 @@ class WeekBoardFragment : Fragment() {
         binding.apply{
             toolbarWeekBoard.apply{
 
-                title = "${Util.testUserModel.userWeek.str}요반 게시판"
+                //title = "${Util.testUserModel.userWeek.str}요반 게시판"
                 inflateMenu(R.menu.menu_week_board)
             }
         }
@@ -44,19 +44,19 @@ class WeekBoardFragment : Fragment() {
 
     // ---------------------------------------------------------------
 
-    fun initData(){
-        userWeek = Util.testUserModel.userWeek
-        Util.postList.forEach{
-            if(it.postWeek == userWeek){
-                Util.myWeekList.add(it)
-            }
-        }
-    }
+//    fun initData(){
+//        userWeek = Util.testUserModel.userWeek
+//        Util.postList.forEach{
+//            if(it.postWeek == userWeek){
+//                Util.myWeekList.add(it)
+//            }
+//        }
+//    }
 
     fun initView(){
         binding.apply{
             recyclerViewWeekBoard.apply{
-                adapter = RecyclerViewAdapterWeekBoard(Util.myWeekList)
+                //adapter = RecyclerViewAdapterWeekBoard(Util.myWeekList)
                 layoutManager = LinearLayoutManager(requireContext())
 
                 val decoration = MaterialDividerItemDecoration(requireContext(),

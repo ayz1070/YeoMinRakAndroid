@@ -8,7 +8,7 @@ class UserDao {
         // select one
         fun selectOneUser(context: Context, idx:Int): UserModel {
             // 쿼리문
-            val sql = """select idx, userName, userId, userWeekStr
+            val sql = """select idx, userName, userNickname, userWeek, userProfileImage
                 | from UserTable
                 | where idx = ?
             """.trimMargin()
@@ -24,16 +24,18 @@ class UserDao {
 
             val idx1 = cursor.getColumnIndex("idx")
             val idx2 = cursor.getColumnIndex("userName")
-            val idx3 = cursor.getColumnIndex("userId")
-            val idx4 = cursor.getColumnIndex("userWeekStr")
+            val idx3 = cursor.getColumnIndex("userNickname")
+            val idx4 = cursor.getColumnIndex("userWeek")
+            val idx5 = cursor.getColumnIndex("userProfileImage")
 
             val idx = cursor.getInt(idx1)
             val userName = cursor.getString(idx2)
             val userId = cursor.getString(idx3)
             val userWeekStr = cursor.getString(idx4)
             val userWeek = Util.stringToWeek(userWeekStr)
+            val userProfileImage = cursor.getBlob(idx5)
 
-            val userModel = UserModel(idx,userName,userId,userWeek)
+            val userModel = UserModel(idx,userName,userId,userWeek,userProfileImage)
 
             dbHelper.close()
             return userModel
@@ -41,7 +43,7 @@ class UserDao {
 
         // select all
         fun selectAllStudent(context:Context):MutableList<UserModel>{
-            val sql = """select idx, userName, userId, userWeekStr
+            val sql = """select idx, userName, userNickname, userWeek, userProfileImage
                 | from UserTable
                 | order by idx desc
             """.trimMargin()
@@ -55,17 +57,19 @@ class UserDao {
 
             while(cursor.moveToNext()){
                 val idx1 = cursor.getColumnIndex("idx")
-                val idx2 = cursor.getColumnIndex("userNameStr")
-                val idx3 = cursor.getColumnIndex("userId")
+                val idx2 = cursor.getColumnIndex("userName")
+                val idx3 = cursor.getColumnIndex("userNickname")
                 val idx4 = cursor.getColumnIndex("userWeek")
+                val idx5 = cursor.getColumnIndex("userProfileImage")
 
                 val idx = cursor.getInt(idx1)
                 val userName = cursor.getString(idx2)
-                val userId = cursor.getString(idx3)
+                val userNickname = cursor.getString(idx3)
                 val userWeekStr = cursor.getString(idx4)
                 val userWeek = Util.stringToWeek(userWeekStr)
+                val userProfileImage = cursor.getBlob(idx5)
 
-                val userModel = UserModel(idx,userName,userId,userWeek)
+                val userModel = UserModel(idx,userName,userNickname,userWeek,userProfileImage)
 
 
                 userList.add(userModel)
@@ -79,12 +83,12 @@ class UserDao {
             // 쿼리문
             val sql = """
                 insert into UserTable
-                (userName,userId,userWeek)
-                values(?, ?, ?)
+                (userName,userNickname,userWeek,userProfileImage)
+                values(?, ?, ?, ?)
             """.trimIndent()
 
             // ? 에 바인딩 될 값
-            val args = arrayOf(userModel.userName,userModel.userId,userModel.userWeek)
+            val args = arrayOf(userModel.userName,userModel.userNickname,userModel.userWeek,userModel.userProfileImage)
             // 쿼리 실행
             val dbHelper = DBHelper(context)
             dbHelper.writableDatabase.execSQL(sql, args)
@@ -95,12 +99,12 @@ class UserDao {
         fun updateUser(context:Context, userModel: UserModel){
             // 쿼리문
             val sql = """update UserTable
-            | set userName = ?, userId = ?, userWeek = ?
+            | set userName = ?, userNickname = ?, userWeek = ?, userImage = ?
             | where idx = ?
         """.trimMargin()
 
             // ?에 바인딩 될 값
-            val args = arrayOf(userModel.userName,userModel.userId,userModel.userWeek)
+            val args = arrayOf(userModel.userName,userModel.userNickname,userModel.userWeek, userModel.userProfileImage)
 
             // 쿼리 실행
             val dbHelper = DBHelper(context)
@@ -124,6 +128,4 @@ class UserDao {
             dbHelper.close()
         }
     }
-
-
 }

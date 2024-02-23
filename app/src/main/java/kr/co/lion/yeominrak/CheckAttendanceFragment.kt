@@ -76,19 +76,19 @@ class CheckAttendanceFragment : Fragment() {
             buttonAttendance.setOnClickListener {
                 when(radioGroupAttendance.checkedRadioButtonId){
                     R.id.radioButtonNotSelected -> {
-                        val attendance = Attendance(Util.testUserModel.userName,AttendState.NOT_SELECTED)
+                        val attendance = Attendance(mainActivity.myUserModel.userName,AttendState.NOT_SELECTED)
                         attendanceList.add(attendance)
                         notSelectedList.add(attendance)
 
                     }
                     R.id.radioButtonAttend -> {
-                        val attendance = Attendance(Util.testUserModel.userName,AttendState.ATTEND)
+                        val attendance = Attendance(mainActivity.myUserModel.userName,AttendState.ATTEND)
                         attendanceList.add(attendance)
                         attendList.add(attendance)
 
                     }
                     R.id.radioButtonNotAttend -> {
-                        val attendance = Attendance(Util.testUserModel.userName,AttendState.NOT_ATTEND)
+                        val attendance = Attendance(mainActivity.myUserModel.userName,AttendState.NOT_ATTEND)
                         attendanceList.add(attendance)
                         notAttendList.add(attendance)
                     }
@@ -129,7 +129,7 @@ class CheckAttendanceFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolderCheckAttend, position: Int) {
             // 이미지는 테스트용
-            holder.rowCheckBinding.imageViewProfileCheckRow.setImageResource(R.drawable.image_2)
+            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(Util.convertByteArrayToBitmap(mainActivity.myUserModel.userProfileImage))
             holder.rowCheckBinding.textViewNameCheckRow.text = attendList[position].userName
         }
     }
@@ -161,7 +161,7 @@ class CheckAttendanceFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolderCheckNotAttend, position: Int) {
             // 이미지는 테스트용
-            holder.rowCheckBinding.imageViewProfileCheckRow.setImageResource(R.drawable.image_2)
+            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(Util.convertByteArrayToBitmap(mainActivity.myUserModel.userProfileImage))
             holder.rowCheckBinding.textViewNameCheckRow.text = notAttendList[position].userName
 
         }
@@ -194,7 +194,7 @@ class CheckAttendanceFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolderCheckNotSelected, position: Int) {
             // 이미지는 테스트용
-            holder.rowCheckBinding.imageViewProfileCheckRow.setImageResource(R.drawable.image_2)
+            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(Util.convertByteArrayToBitmap(mainActivity.myUserModel.userProfileImage))
             holder.rowCheckBinding.textViewNameCheckRow.text = notSelectedList[position].userName
         }
     }

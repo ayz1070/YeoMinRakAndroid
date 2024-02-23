@@ -109,13 +109,13 @@ class BoardFragment : Fragment() {
             return viewHolderBoard
         }
 
-        override fun getItemCount(): Int = Util.postList.size
+        override fun getItemCount(): Int = 20 //Util.postList.size
 
         override fun onBindViewHolder(holder: ViewHolderBoard, position: Int) {
-            holder.rowBoardBinding.textViewTitle.text = Util.postList[position].postTitle
-            holder.rowBoardBinding.textViewContent.text = Util.postList[position].postContent
-            holder.rowBoardBinding.textViewNickname.text = Util.postList[position].postUserId
-            holder.rowBoardBinding.textViewDate.text = Util.postList[position].postDate
+//            holder.rowBoardBinding.textViewTitle.text = Util.postList[position].postTitle
+//            holder.rowBoardBinding.textViewContent.text = Util.postList[position].postContent
+//            holder.rowBoardBinding.textViewNickname.text = Util.postList[position].postUserId
+//            holder.rowBoardBinding.textViewDate.text = Util.postList[position].postDate
 
             holder.rowBoardBinding.root.setOnClickListener {
                 val bundle = Bundle()

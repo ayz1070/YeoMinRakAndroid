@@ -17,6 +17,7 @@ import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import kr.co.lion.yeominrak.databinding.ActivityMainBinding
 import kr.co.lion.yeominrak.databinding.RowMainBinding
+import kr.co.lion.yeominrak.model.UserModel
 
 class MainActivity : AppCompatActivity() {
     lateinit var binding:ActivityMainBinding
@@ -24,11 +25,19 @@ class MainActivity : AppCompatActivity() {
     var oldFragment: Fragment? = null
     var newFragment: Fragment? = null
 
+    lateinit var myUserModel : UserModel
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
+        initData()
+
         replaceFragment(FragmentName.MAIN_FRAGMENT, false,false,null)
+    }
+
+    fun initData(){
+        myUserModel = UserDao.selectOneUser(this,1)
     }
 
     fun replaceFragment(fragmentName:FragmentName,addToBackStack:Boolean, isAnimate:Boolean, data:Bundle?){

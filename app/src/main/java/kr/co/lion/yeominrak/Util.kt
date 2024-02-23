@@ -1,8 +1,19 @@
 package kr.co.lion.yeominrak
 
+import android.content.ContentResolver
+import android.content.Context
+import android.graphics.Bitmap
+import android.graphics.BitmapFactory
+import android.graphics.Canvas
+import android.graphics.drawable.BitmapDrawable
+import android.graphics.drawable.Drawable
+import android.net.Uri
+import androidx.core.content.ContextCompat
 import kr.co.lion.yeominrak.model.Post
 import kr.co.lion.yeominrak.model.UserModel
 import kr.co.lion.yeominrak.model.Week
+import java.io.ByteArrayOutputStream
+import java.io.InputStream
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
@@ -10,27 +21,6 @@ import java.util.Locale
 
 class Util {
     companion object{
-        val testUser1 = UserModel(0,"안영준","안영준 닉네임",Week.WEEK_SATURDAY)
-        val testUser2 = UserModel(0,"양승국","안영준 닉네임",Week.WEEK_SATURDAY)
-        val testUser3 = UserModel(0,"최재원","안영준 닉네임",Week.WEEK_SATURDAY)
-        val testUser4 = UserModel(0,"","안영준 닉네임",Week.WEEK_SATURDAY)
-
-        val postList = mutableListOf<Post>(
-
-            Post("테스트 글1","테스트 내용1",UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userName,UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userId, getCurrentDate(),Week.WEEK_SUNDAY),
-            Post("테스트 글1","테스트 내용1",UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userName,UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userId, getCurrentDate(),Week.WEEK_SUNDAY),
-            Post("테스트 글1","테스트 내용1",UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userName,UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userId, getCurrentDate(),Week.WEEK_SUNDAY),
-            Post("테스트 글1","테스트 내용1",UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userName,UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userId, getCurrentDate(),Week.WEEK_SUNDAY),
-            Post("테스트 글1","테스트 내용1",UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userName,UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userId, getCurrentDate(),Week.WEEK_SUNDAY),
-            Post("테스트 글1","테스트 내용1",UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userName,UserModel(0,"안영준","안영준이",Week.WEEK_SATURDAY).userId, getCurrentDate(),Week.WEEK_SUNDAY),
-
-        )
-
-        val testUserModel = UserModel(1,"안영준","ayz1070",Week.WEEK_SATURDAY)
-
-        val myWeekList = mutableListOf<Post>(
-
-        )
 
         fun getCurrentDate(): String {
             val currentTime = Date()
@@ -70,6 +60,19 @@ class Util {
             Week.WEEK_SATURDAY -> Week.WEEK_SATURDAY.str
             else -> Week.WEEK_WEDNESDAY.str
         }
+
+        fun convertBitmapToByteArray(bitmap: Bitmap): ByteArray {
+            val outputStream = ByteArrayOutputStream()
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, outputStream)
+            return outputStream.toByteArray()
+        }
+//----------------------------------------------------------
+
+
+        fun convertByteArrayToBitmap(byteArray: ByteArray): Bitmap {
+            return BitmapFactory.decodeByteArray(byteArray, 0, byteArray.size)
+        }
+
 
     }
 }

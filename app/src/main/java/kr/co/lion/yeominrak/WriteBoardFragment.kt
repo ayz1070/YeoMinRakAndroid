@@ -68,7 +68,7 @@ class WriteBoardFragment : Fragment() {
                 return
             }
             val user = UserDao.selectOneUser(requireContext(),0)
-            Util.postList.add(Post(postTitle,postContent,user.userName,user.userId,Util.getCurrentDate(),Util.testUserModel.userWeek))
+            //Util.postList.add(Post(postTitle,postContent,user.userName,user.userId,Util.getCurrentDate(),Util.testUserModel.userWeek))
             mainActivity.removeFragment(FragmentName.WRITE_BOARD_FRAGMENT)
         }
 

@@ -1,7 +1,9 @@
 package kr.co.lion.yeominrak
 
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
+import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.MediaStore
@@ -18,25 +20,27 @@ class InputUserInfoActivity : AppCompatActivity() {
     lateinit var galleryResultLauncher: ActivityResultLauncher<Intent>
 
     lateinit var userName:String
-    lateinit var userId:String
+    lateinit var userNickname:String
     lateinit var userWeek: Week
+    lateinit var userProfileImage:ByteArray
+
+
+    lateinit var imageUri: Uri
+    lateinit var imageBitmap: Bitmap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityInputUserInfoBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-
         initData()
         initView()
         setEvent()
-
     }
-
 
     fun processInput(){
         binding.apply{
             userName = editTextName.text.toString()
-            userId = editTextId.text.toString()
+            userNickname = editTextId.text.toString()
             val userWeekStr = textViewMenuInputUser.text.toString()
 
             if(userName.isEmpty()){
@@ -44,7 +48,7 @@ class InputUserInfoActivity : AppCompatActivity() {
                 return
             }
 
-            if(userId.isEmpty()){
+            if(userNickname.isEmpty()){
                 Snackbar.make(binding.root,"빈 칸이 존재합니다!!",Snackbar.LENGTH_SHORT).show()
                 return
             }
@@ -55,8 +59,9 @@ class InputUserInfoActivity : AppCompatActivity() {
             }
 
             userWeek = Util.stringToWeek(userWeekStr)
+            userProfileImage = Util.convertBitmapToByteArray(imageBitmap)
 
-            val userModel = UserModel(0,userName, userId, userWeek)
+            val userModel = UserModel(0,userName, userNickname, userWeek, userProfileImage)
             UserDao.insertUser(this@InputUserInfoActivity,userModel)
         }
 
@@ -68,8 +73,8 @@ class InputUserInfoActivity : AppCompatActivity() {
         galleryResultLauncher = registerForActivityResult(contract1){
             if(it.resultCode == RESULT_OK){
                 if(it.data != null){
-                    val imageUri = it.data?.data
-                    val imageBitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri!!))
+                    imageUri = it.data?.data!!
+                    imageBitmap = BitmapFactory.decodeStream(contentResolver.openInputStream(imageUri))
                     binding.imageViewProfileInputUser.setImageBitmap(imageBitmap)
                 }
             }
@@ -104,6 +109,5 @@ class InputUserInfoActivity : AppCompatActivity() {
                 galleryResultLauncher.launch(galleryIntent)
             }
         }
-
     }
 }
