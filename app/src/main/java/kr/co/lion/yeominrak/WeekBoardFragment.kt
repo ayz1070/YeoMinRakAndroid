@@ -101,7 +101,7 @@ class WeekBoardFragment : Fragment() {
         override fun onBindViewHolder(holder: ViewHolderWeekBoard, position: Int) {
             holder.rowBoardBinding.textViewTitle.text = itemList[position].postTitle
             holder.rowBoardBinding.textViewContent.text = itemList[position].postContent
-            holder.rowBoardBinding.textViewNickname.text = itemList[position].postUserId
+            holder.rowBoardBinding.textViewNickname.text = itemList[position].postUserNickname
             holder.rowBoardBinding.textViewDate.text = itemList[position].postDate
         }
     }

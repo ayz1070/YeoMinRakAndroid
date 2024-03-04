@@ -51,4 +51,5 @@ dependencies {
     // 추가
     implementation("androidx.preference:preference-ktx:1.2.1")
     implementation ("de.hdodenhof:circleimageview:3.1.0") //Circle ImageView
+    implementation("androidx.core:core-splashscreen:1.0.1")
 }

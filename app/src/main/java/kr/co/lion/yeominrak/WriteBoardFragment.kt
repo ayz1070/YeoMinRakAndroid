@@ -60,15 +60,19 @@ class WriteBoardFragment : Fragment() {
             postTitle = editTextTitleWrite.text.toString()
             postContent = editTextContentWrite.text.toString()
             if(postTitle.isEmpty()){
-                Snackbar.make(binding.root,"빈 칸이 존재합니다!!", Snackbar.LENGTH_SHORT)
+                Snackbar.make(binding.root,"빈 칸이 존재합니다!!", Snackbar.LENGTH_SHORT).show()
                 return
             }
             if(postContent.isEmpty()){
-                Snackbar.make(binding.root,"빈 칸이 존재합니다!!", Snackbar.LENGTH_SHORT)
+                Snackbar.make(binding.root,"빈 칸이 존재합니다!!", Snackbar.LENGTH_SHORT).show()
                 return
             }
-            val user = UserDao.selectOneUser(requireContext(),0)
-            //Util.postList.add(Post(postTitle,postContent,user.userName,user.userId,Util.getCurrentDate(),Util.testUserModel.userWeek))
+            val user = UserDao.selectOneUser(requireContext(),1)
+
+            val post = Post(1, postTitle, postContent, user.userName, user.userNickname, Util.getCurrentDate(),user.userWeek)
+
+            PostDao.insertPost(requireContext(),post)
+
             mainActivity.removeFragment(FragmentName.WRITE_BOARD_FRAGMENT)
         }
 
