@@ -1,4 +1,4 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.fragment
 
 import android.graphics.Color
 import android.os.Bundle
@@ -7,9 +7,14 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
+import kr.co.lion.yeominrak.FragmentNameMain
+import kr.co.lion.yeominrak.MainActivity
+import kr.co.lion.yeominrak.PostDao
+import kr.co.lion.yeominrak.R
+import kr.co.lion.yeominrak.UserDao
+import kr.co.lion.yeominrak.Util
 import kr.co.lion.yeominrak.databinding.FragmentWriteBoardBinding
 import kr.co.lion.yeominrak.model.Post
-import kr.co.lion.yeominrak.model.UserModel
 
 
 class WriteBoardFragment : Fragment() {
@@ -38,7 +43,7 @@ class WriteBoardFragment : Fragment() {
                 setTitleTextColor(Color.WHITE)
                 setNavigationIcon(R.drawable.arrow_back_24px)
                 setNavigationOnClickListener {
-                    mainActivity.removeFragment(FragmentName.WRITE_BOARD_FRAGMENT)
+                    mainActivity.removeFragment(FragmentNameMain.WRITE_BOARD_FRAGMENT)
                 }
                 setOnMenuItemClickListener {
                     when(it.itemId){
@@ -67,13 +72,14 @@ class WriteBoardFragment : Fragment() {
                 Snackbar.make(binding.root,"빈 칸이 존재합니다!!", Snackbar.LENGTH_SHORT).show()
                 return
             }
-            val user = UserDao.selectOneUser(requireContext(),1)
+            val user = UserDao.selectOneUser(requireContext(), 1)
 
-            val post = Post(1, postTitle, postContent, user.userName, user.userNickname, Util.getCurrentDate(),user.userWeek)
+            val post = Post(1, postTitle, postContent, user.userName, user.userNickname,
+                Util.getCurrentDate(),user.userWeek)
 
-            PostDao.insertPost(requireContext(),post)
+            PostDao.insertPost(requireContext(), post)
 
-            mainActivity.removeFragment(FragmentName.WRITE_BOARD_FRAGMENT)
+            mainActivity.removeFragment(FragmentNameMain.WRITE_BOARD_FRAGMENT)
         }
 
     }

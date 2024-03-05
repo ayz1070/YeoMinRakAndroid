@@ -1,11 +1,8 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.fragment
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.preference.PreferenceFragmentCompat
+import kr.co.lion.yeominrak.R
 
 
 class SettingFragment : PreferenceFragmentCompat(){

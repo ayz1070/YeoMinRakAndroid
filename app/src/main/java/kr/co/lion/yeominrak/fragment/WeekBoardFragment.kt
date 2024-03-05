@@ -1,4 +1,4 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import kr.co.lion.yeominrak.R
 import kr.co.lion.yeominrak.databinding.FragmentWeekBoardBinding
 import kr.co.lion.yeominrak.databinding.RowBoardBinding
 import kr.co.lion.yeominrak.model.Post

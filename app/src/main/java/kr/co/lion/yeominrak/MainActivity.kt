@@ -1,23 +1,21 @@
 package kr.co.lion.yeominrak
 
-import android.content.Intent
-import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
-import android.view.View
-import android.view.ViewGroup
-import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
 import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
-import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.Recycler
-import com.google.android.material.carousel.CarouselLayoutManager
 import com.google.android.material.transition.MaterialSharedAxis
 import kr.co.lion.yeominrak.databinding.ActivityMainBinding
-import kr.co.lion.yeominrak.databinding.RowMainBinding
+import kr.co.lion.yeominrak.fragment.BoardFragment
+import kr.co.lion.yeominrak.fragment.CheckAttendanceFragment
+import kr.co.lion.yeominrak.fragment.MainFragment
+import kr.co.lion.yeominrak.fragment.ModifyBoardFragment
+import kr.co.lion.yeominrak.fragment.SettingFragment
+import kr.co.lion.yeominrak.fragment.ShowOneBoardFragment
+import kr.co.lion.yeominrak.fragment.WeekBoardFragment
+import kr.co.lion.yeominrak.fragment.WriteBoardFragment
 import kr.co.lion.yeominrak.model.UserModel
 
 class MainActivity : AppCompatActivity() {
@@ -36,14 +34,14 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         initData()
 
-        replaceFragment(FragmentName.MAIN_FRAGMENT, false,false,null)
+        replaceFragment(FragmentNameMain.MAIN_FRAGMENT, false,false,null)
     }
 
     fun initData(){
         myUserModel = UserDao.selectOneUser(this,1)
     }
 
-    fun replaceFragment(fragmentName:FragmentName,addToBackStack:Boolean, isAnimate:Boolean, data:Bundle?){
+    fun replaceFragment(fragmentName:FragmentNameMain,addToBackStack:Boolean, isAnimate:Boolean, data:Bundle?){
         SystemClock.sleep(200)
 
         // Fragment를 교체할 수 있는 객체를 추출한다.
@@ -57,28 +55,28 @@ class MainActivity : AppCompatActivity() {
         // 이름으로 분기한다.
         // Fragment의 객체를 생성하여 변수에 담아준다.
         when(fragmentName){
-            FragmentName.MAIN_FRAGMENT -> {
+            FragmentNameMain.MAIN_FRAGMENT -> {
                 newFragment = MainFragment()
             }
-            FragmentName.BOARD_FRAGMENT -> {
+            FragmentNameMain.BOARD_FRAGMENT -> {
                 newFragment = BoardFragment()
             }
-            FragmentName.WEEK_BOARD_FRAGMENT -> {
+            FragmentNameMain.WEEK_BOARD_FRAGMENT -> {
                 newFragment = WeekBoardFragment()
             }
-            FragmentName.CHECK_ATTENDANCE_FRAGMENT -> {
+            FragmentNameMain.CHECK_ATTENDANCE_FRAGMENT -> {
                 newFragment = CheckAttendanceFragment()
             }
-            FragmentName.WRITE_BOARD_FRAGMENT -> {
+            FragmentNameMain.WRITE_BOARD_FRAGMENT -> {
                 newFragment = WriteBoardFragment()
             }
-            FragmentName.MODIFY_BOARD_FRAGMENT -> {
+            FragmentNameMain.MODIFY_BOARD_FRAGMENT -> {
                 newFragment = ModifyBoardFragment()
             }
-            FragmentName.SHOW_ONE_BOARD_FRAGMENT -> {
+            FragmentNameMain.SHOW_ONE_BOARD_FRAGMENT -> {
                 newFragment = ShowOneBoardFragment()
             }
-            FragmentName.SETTING_FRAGMENT -> {
+            FragmentNameMain.SETTING_FRAGMENT -> {
                 newFragment = SettingFragment()
             }
 
@@ -123,7 +121,7 @@ class MainActivity : AppCompatActivity() {
 
     }
 
-    fun removeFragment(fragmentName:FragmentName){
+    fun removeFragment(fragmentName:FragmentNameMain){
         SystemClock.sleep(200)
 
         // 지정한 이름으로 있는 Fragment를 BackStack에서 제거한다.
@@ -131,13 +129,3 @@ class MainActivity : AppCompatActivity() {
     }
 }
 
-enum class FragmentName(var str:String){
-    MAIN_FRAGMENT("MainFragment"),
-    BOARD_FRAGMENT("BoardFragment"),
-    WEEK_BOARD_FRAGMENT("WeekBoardFragment"),
-    CHECK_ATTENDANCE_FRAGMENT("CheckAttendanceFragment"),
-    WRITE_BOARD_FRAGMENT("WriteBoardFragment"),
-    SHOW_ONE_BOARD_FRAGMENT("ShowOneBoardFragment"),
-    MODIFY_BOARD_FRAGMENT("ModifyBoardFragment"),
-    SETTING_FRAGMENT("SettingFragment")
-}

@@ -7,10 +7,4 @@
 
     <style name="Theme.YeoMinRak" parent="Base.Theme.YeoMinRak" />
 
-    <style name="AppTheme.Starting" parent="Theme.SplashScreen">
-        <item name="windowSplashScreenBackground">@color/ic_logo_test_background</item>
-        <item name="windowSplashScreenAnimatedIcon">@mipmap/ic_logo_test</item>
-        <item name="windowSplashScreenAnimationDuration">1000</item>
-        <item name="postSplashScreenTheme">@style/Theme.YeoMinRak</item>
-    </style>
 </resources>

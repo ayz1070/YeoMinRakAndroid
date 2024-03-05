@@ -1,4 +1,4 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.fragment
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -7,8 +7,11 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import androidx.recyclerview.widget.RecyclerView.LayoutManager
-import com.google.android.material.divider.MaterialDividerItemDecoration
+import kr.co.lion.yeominrak.AttendState
+import kr.co.lion.yeominrak.Attendance
+import kr.co.lion.yeominrak.MainActivity
+import kr.co.lion.yeominrak.R
+import kr.co.lion.yeominrak.Util
 import kr.co.lion.yeominrak.databinding.FragmentCheckAttendanceBinding
 import kr.co.lion.yeominrak.databinding.RowCheckBinding
 
@@ -76,19 +79,25 @@ class CheckAttendanceFragment : Fragment() {
             buttonAttendance.setOnClickListener {
                 when(radioGroupAttendance.checkedRadioButtonId){
                     R.id.radioButtonNotSelected -> {
-                        val attendance = Attendance(mainActivity.myUserModel.userName,AttendState.NOT_SELECTED)
+                        val attendance = Attendance(mainActivity.myUserModel.userName,
+                            AttendState.NOT_SELECTED
+                        )
                         attendanceList.add(attendance)
                         notSelectedList.add(attendance)
 
                     }
                     R.id.radioButtonAttend -> {
-                        val attendance = Attendance(mainActivity.myUserModel.userName,AttendState.ATTEND)
+                        val attendance = Attendance(mainActivity.myUserModel.userName,
+                            AttendState.ATTEND
+                        )
                         attendanceList.add(attendance)
                         attendList.add(attendance)
 
                     }
                     R.id.radioButtonNotAttend -> {
-                        val attendance = Attendance(mainActivity.myUserModel.userName,AttendState.NOT_ATTEND)
+                        val attendance = Attendance(mainActivity.myUserModel.userName,
+                            AttendState.NOT_ATTEND
+                        )
                         attendanceList.add(attendance)
                         notAttendList.add(attendance)
                     }
@@ -129,7 +138,11 @@ class CheckAttendanceFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolderCheckAttend, position: Int) {
             // 이미지는 테스트용
-            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(Util.convertByteArrayToBitmap(mainActivity.myUserModel.userProfileImage))
+            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(
+                Util.convertByteArrayToBitmap(
+                    mainActivity.myUserModel.userProfileImage
+                )
+            )
             holder.rowCheckBinding.textViewNameCheckRow.text = attendList[position].userName
         }
     }
@@ -161,7 +174,11 @@ class CheckAttendanceFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolderCheckNotAttend, position: Int) {
             // 이미지는 테스트용
-            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(Util.convertByteArrayToBitmap(mainActivity.myUserModel.userProfileImage))
+            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(
+                Util.convertByteArrayToBitmap(
+                    mainActivity.myUserModel.userProfileImage
+                )
+            )
             holder.rowCheckBinding.textViewNameCheckRow.text = notAttendList[position].userName
 
         }
@@ -194,7 +211,11 @@ class CheckAttendanceFragment : Fragment() {
 
         override fun onBindViewHolder(holder: ViewHolderCheckNotSelected, position: Int) {
             // 이미지는 테스트용
-            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(Util.convertByteArrayToBitmap(mainActivity.myUserModel.userProfileImage))
+            holder.rowCheckBinding.imageViewProfileCheckRow.setImageBitmap(
+                Util.convertByteArrayToBitmap(
+                    mainActivity.myUserModel.userProfileImage
+                )
+            )
             holder.rowCheckBinding.textViewNameCheckRow.text = notSelectedList[position].userName
         }
     }

@@ -1,17 +1,17 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.fragment
 
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.divider.MaterialDividerItemDecoration
+import kr.co.lion.yeominrak.FragmentNameMain
+import kr.co.lion.yeominrak.MainActivity
+import kr.co.lion.yeominrak.R
 import kr.co.lion.yeominrak.databinding.FragmentBoardBinding
 import kr.co.lion.yeominrak.databinding.RowBoardBinding
 
@@ -50,12 +50,12 @@ class BoardFragment : Fragment() {
                 setNavigationIcon(R.drawable.arrow_back_24px)
                 inflateMenu(R.menu.menu_board)
                 setNavigationOnClickListener {
-                    mainActivity.removeFragment(FragmentName.BOARD_FRAGMENT)
+                    mainActivity.removeFragment(FragmentNameMain.BOARD_FRAGMENT)
                 }
                 setOnMenuItemClickListener {
                     when(it.itemId){
                         R.id.menu_item_write_board -> {
-                            mainActivity.replaceFragment(FragmentName.WRITE_BOARD_FRAGMENT,true,true,null)
+                            mainActivity.replaceFragment(FragmentNameMain.WRITE_BOARD_FRAGMENT,true,true,null)
                         }
                     }
                     true
@@ -120,7 +120,7 @@ class BoardFragment : Fragment() {
             holder.rowBoardBinding.root.setOnClickListener {
                 val bundle = Bundle()
                 bundle.putInt("position",position)
-                mainActivity.replaceFragment(FragmentName.SHOW_ONE_BOARD_FRAGMENT,true,true,bundle)
+                mainActivity.replaceFragment(FragmentNameMain.SHOW_ONE_BOARD_FRAGMENT,true,true,bundle)
             }
         }
     }

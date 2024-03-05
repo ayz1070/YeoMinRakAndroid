@@ -1,4 +1,4 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.fragment
 
 import android.content.Intent
 import android.os.Bundle
@@ -7,14 +7,16 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.activity.result.ActivityResultLauncher
-import androidx.activity.result.contract.ActivityResultContracts
+import kr.co.lion.yeominrak.FragmentNameMain
+import kr.co.lion.yeominrak.MainActivity
+import kr.co.lion.yeominrak.R
 import kr.co.lion.yeominrak.databinding.FragmentShowOneBoardBinding
 
 
 class ShowOneBoardFragment : Fragment() {
     lateinit var binding:FragmentShowOneBoardBinding
     lateinit var modifyBoardLauncher: ActivityResultLauncher<Intent>
-    lateinit var mainActivity:MainActivity
+    lateinit var mainActivity: MainActivity
 
     var position:Int = 0
 
@@ -44,18 +46,18 @@ class ShowOneBoardFragment : Fragment() {
                 setNavigationIcon(R.drawable.arrow_back_24px)
 
                 setNavigationOnClickListener {
-                    mainActivity.removeFragment(FragmentName.SHOW_ONE_BOARD_FRAGMENT)
+                    mainActivity.removeFragment(FragmentNameMain.SHOW_ONE_BOARD_FRAGMENT)
                 }
                 setOnMenuItemClickListener {
                     when(it.itemId){
                         R.id.menu_item_modify_show_one -> {
 
                             // positon 값을 전달해야 한다. 추후 생각하자
-                            mainActivity.replaceFragment(FragmentName.MODIFY_BOARD_FRAGMENT,true,true,null)
+                            mainActivity.replaceFragment(FragmentNameMain.MODIFY_BOARD_FRAGMENT,true,true,null)
                         }
                         R.id.menu_item_delete_show_one -> {
                             //Util.postList.removeAt(position)
-                            mainActivity.removeFragment(FragmentName.MODIFY_BOARD_FRAGMENT)
+                            mainActivity.removeFragment(FragmentNameMain.MODIFY_BOARD_FRAGMENT)
                         }
                     }
                     true
