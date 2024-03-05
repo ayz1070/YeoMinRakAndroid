@@ -38,7 +38,6 @@ class MainFragment : Fragment() {
         binding.apply{
             toolbarMain.apply{
                 title = "메인 화면"
-                setTitleTextColor(getResources().getColor(R.color.white))
                 inflateMenu(R.menu.menu_main)
             }
         }
@@ -85,9 +84,7 @@ class MainFragment : Fragment() {
                 mainActivity.replaceFragment(FragmentNameMain.CHECK_ATTENDANCE_FRAGMENT,true,true,null)
             }
 
-            textViewTestMain.setOnClickListener {
-                mainActivity.replaceFragment(FragmentNameMain.SETTING_FRAGMENT,true,true,null)
-            }
+
 
         }
     }

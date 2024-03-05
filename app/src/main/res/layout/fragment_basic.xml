@@ -4,27 +4,26 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".fragment.BoardFragment">
+    android:orientation="vertical"
+    tools:context=".fragment.BasicFragment">
 
-    <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbarBoard"
+    <androidx.fragment.app.FragmentContainerView
+        android:id="@+id/fragmentContainerBasic"
         android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:minHeight="?attr/actionBarSize"
-        android:theme="?attr/actionBarTheme"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toTopOf="@+id/bottom_navigation_basic"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recyclerViewBoard"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="1dp"
+    <com.google.android.material.bottomnavigation.BottomNavigationView
+        android:id="@+id/bottom_navigation_basic"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/toolbarBoard"
-        app:layout_constraintVertical_bias="0.0" />
+        app:menu="@menu/menu_main_bottom_navigation" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

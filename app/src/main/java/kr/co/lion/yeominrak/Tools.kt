@@ -11,9 +11,11 @@ enum class FragmentNameMain(var str:String){
     WRITE_BOARD_FRAGMENT("WriteBoardFragment"),
     SHOW_ONE_BOARD_FRAGMENT("ShowOneBoardFragment"),
     MODIFY_BOARD_FRAGMENT("ModifyBoardFragment"),
-    SETTING_FRAGMENT("SettingFragment")
+    SETTING_FRAGMENT("SettingFragment"),
+    BASIC_FRAGMENT("BasicFragment")
 }
 
 enum class FragmentNameLogin(var str:String){
     INPUT_USER_INFO_FRAGMENT("InputUserInfoFragment"),
 }
+

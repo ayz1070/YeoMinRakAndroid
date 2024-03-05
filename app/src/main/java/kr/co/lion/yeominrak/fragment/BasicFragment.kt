@@ -1,50 +1,70 @@
-package kr.co.lion.yeominrak
+package kr.co.lion.yeominrak.fragment
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.SystemClock
-import androidx.core.splashscreen.SplashScreen.Companion.installSplashScreen
 import androidx.fragment.app.Fragment
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
+import android.widget.AdapterView.OnItemSelectedListener
 import androidx.fragment.app.FragmentManager
 import com.google.android.material.transition.MaterialSharedAxis
-import kr.co.lion.yeominrak.databinding.ActivityMainBinding
-import kr.co.lion.yeominrak.fragment.BasicFragment
-import kr.co.lion.yeominrak.fragment.BoardFragment
-import kr.co.lion.yeominrak.fragment.CheckAttendanceFragment
-import kr.co.lion.yeominrak.fragment.MainFragment
-import kr.co.lion.yeominrak.fragment.ModifyBoardFragment
-import kr.co.lion.yeominrak.fragment.SettingFragment
-import kr.co.lion.yeominrak.fragment.ShowOneBoardFragment
-import kr.co.lion.yeominrak.fragment.WeekBoardFragment
-import kr.co.lion.yeominrak.fragment.WriteBoardFragment
-import kr.co.lion.yeominrak.model.UserModel
+import kr.co.lion.yeominrak.FragmentNameMain
+import kr.co.lion.yeominrak.LoginActivity
+import kr.co.lion.yeominrak.MainActivity
+import kr.co.lion.yeominrak.R
+import kr.co.lion.yeominrak.databinding.FragmentBasicBinding
 
-class MainActivity : AppCompatActivity() {
-    lateinit var binding:ActivityMainBinding
+
+
+class BasicFragment : Fragment() {
+    lateinit var binding:FragmentBasicBinding
+    lateinit var mainActivity: MainActivity
 
     var oldFragment: Fragment? = null
     var newFragment: Fragment? = null
 
-    lateinit var myUserModel : UserModel
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        binding = ActivityMainBinding.inflate(layoutInflater)
+    override fun onCreateView(
+        inflater: LayoutInflater, container: ViewGroup?,
+        savedInstanceState: Bundle?,
+    ): View? {
+        mainActivity = activity as MainActivity
+        binding = FragmentBasicBinding.inflate(inflater)
+        replaceFragment(FragmentNameMain.MAIN_FRAGMENT,false,false,null)
+        setBottomNavigation()
 
-        setContentView(binding.root)
-        initData()
-        replaceFragment(FragmentNameMain.BASIC_FRAGMENT, false,false,null)
+        return binding.root
     }
 
-    fun initData(){
-        myUserModel = UserDao.selectOneUser(this,1)
+    fun setBottomNavigation(){
+        binding.apply{
+            bottomNavigationBasic.apply{
+                setOnItemSelectedListener {
+                    when(it.itemId){
+                        R.id.menu_item_home_main_bottom -> {
+                            replaceFragment(FragmentNameMain.MAIN_FRAGMENT,true,true,null)
+                        }
+                        R.id.menu_item_check_main_bottom -> {
+                            replaceFragment(FragmentNameMain.CHECK_ATTENDANCE_FRAGMENT,true,true,null)
+                        }
+                        R.id.menu_item_my_page_main_bottom -> {
+                            replaceFragment(FragmentNameMain.SETTING_FRAGMENT,true,true,null)
+                        }
+                    }
+
+                    true
+                }
+
+            }
+        }
     }
 
     fun replaceFragment(fragmentName:FragmentNameMain,addToBackStack:Boolean, isAnimate:Boolean, data:Bundle?){
         SystemClock.sleep(200)
 
         // Fragment를 교체할 수 있는 객체를 추출한다.
-        val fragmentTransaction = supportFragmentManager.beginTransaction()
+        val fragmentTransaction = mainActivity.supportFragmentManager.beginTransaction()
 
         // oldFragment에 newFragment가 가지고 있는 Fragment 객체를 담아준다.
         if(newFragment != null){
@@ -110,7 +130,7 @@ class MainActivity : AppCompatActivity() {
                 newFragment?.reenterTransition = null
 
                 // Fragment 교체
-                fragmentTransaction.replace(R.id.fragmentContainerMain, newFragment!!)
+                fragmentTransaction.replace(R.id.fragmentContainerBasic, newFragment!!)
 
                 // addToBackStack 변수의 값이 true면 새롭게 보여질 Fragment를 BackStack에 포함시킨다.
                 if(addToBackStack){
@@ -127,7 +147,10 @@ class MainActivity : AppCompatActivity() {
         SystemClock.sleep(200)
 
         // 지정한 이름으로 있는 Fragment를 BackStack에서 제거한다.
-        supportFragmentManager.popBackStack(fragmentName.str, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+        mainActivity.supportFragmentManager.popBackStack(fragmentName.str, FragmentManager.POP_BACK_STACK_INCLUSIVE)
     }
-}
 
+
+
+
+}
